@@ -10,7 +10,6 @@ namespace API.Controllers;
 public class BasketController : BaseApiController
 {
     private readonly StoreContext _context;
-
     public BasketController(StoreContext context)
     {
         _context = context;
@@ -38,7 +37,7 @@ public class BasketController : BaseApiController
 
         var product = await _context.Products.FindAsync(productId);
 
-        if (product == null) return NotFound();
+        if (product == null) return BadRequest(new ProblemDetails { Title = "Product not found" });
 
         basket.AddItem(product, quantity);
 
